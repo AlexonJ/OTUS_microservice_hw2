@@ -1,0 +1,1 @@
+kubectl get pod --show-labels -A

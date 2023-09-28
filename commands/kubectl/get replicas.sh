@@ -1,0 +1,1 @@
+kubectl get rs --show-labels -A
