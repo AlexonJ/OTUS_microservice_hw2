@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kuber-dp
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      env: dev
+  template:
+    metadata:
+      labels:
+        env: dev
+    spec:
+      containers:
+      - name: kuber-app
+        image: alexeyyf/simple-spring-app:1.0.0
+        ports:
+        - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness/
+            port: 8000
+          initialDelaySeconds: 5  # Wait this many seconds before the first probe
+          periodSeconds: 10       # Probe every 10 seconds
+
